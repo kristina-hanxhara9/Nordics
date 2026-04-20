@@ -1,0 +1,36 @@
+segments:
+  it_mail_order:
+    primary_nace: ["46.51", "46.52", "47.91"]
+    secondary_nace: ["47.41"]
+    keywords:
+      "DK": [IT, Data, Computer, Hardware, Software, Netværk, Systemer, Tech, Supply, Distribution, Løsninger]
+      "SE": [IT, Data, Datorer, Hårdvara, Mjukvara, Nätverk, System, Tech, Supply, Distribution, Lösningar]
+      "NO": [IT, Data, Maskinvare, Programvare, Nettverk, System, Tech, Supply, Distribusjon, Løsninger]
+      "FI": [IT, Tieto, Laitteisto, Ohjelmisto, Verkko, Teknologia, Järjestelmä, Jakelu, Ratkaisut, Tarvikkeet]
+
+  opticians:
+    primary_nace: ["47.78"]
+    secondary_nace: ["47.74", "86.90"]
+    keywords:
+      "DK": [Optik, Optiker, Brille, Brilleriet, Brillehuset, Syn, Øjenoptik, Synscenter, Linse, Optometri]
+      "SE": [Optik, Optiker, Glasögon, Glasögonhuset, Syn, Synoptik, Linsvård, Ögon, Linser, Optometri]
+      "NO": [Optikk, Optiker, Briller, Brilleland, Syn, Synsam, Linser, Øye, Øyeoptikk, Optometri]
+      "FI": [Optikko, Silmä, Silmälasit, Linssit, Näkö, Optikkoliike, Silmäoptikko, Silmälasikeskus]
+
+  computer_specialists:
+    primary_nace: ["47.41"]
+    secondary_nace: ["47.42", "95.11", "47.91"]
+    keywords:
+      "DK": [Computer, PC, Elektronik, Dataland, Computershoppen, Tech, Digital, Hardware, Gamer, Computercenter]
+      "SE": [Dator, PC, Elektronikhuset, Datashop, Teknik, Digital, Hårdvara, Gamer, Datorcenter, Datateknik]
+      "NO": [Datamaskin, PC, Datahuset, Teknikk, Elektronikk, Digital, Hardware, Gamer, Datasenter, Datateknikk]
+      "FI": [Tietokone, PC, Elektroniikka, Tekniikka, Digital, Laitteisto, Gamer, Tietokonekeskus]
+
+  kitchen_specialists:
+    primary_nace: ["47.59"]
+    secondary_nace: ["31.02", "43.32", "47.54"]
+    keywords:
+      "DK": [Køkken, Køkkenspecialisten, Køkkenhuset, Køkkencentret, Interiør, "Bad & Køkken", Køkkendesign, Køkkenland, Køkkenstudio]
+      "SE": [Kök, Köksproffs, Köksspecialisten, Kökshuset, Inredning, "Bad & Kök", Köksentré, Köksdesign, Köksland, Köksstudio]
+      "NO": [Kjøkken, Kjøkkenspesialisten, Kjøkkenhuset, Interiør, "Bad & Kjøkken", Kjøkkendesign, Kjøkkensenteret, Kjøkkenstudio]
+      "FI": [Keittiö, Keittiömaailma, Keittiöspecialisti, Sisustus, Koti, Keittiösuunnittelu, Keittiökeskus, Keittiöstudio]
