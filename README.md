@@ -14,7 +14,7 @@ Iceland is out of scope.
 
 | Country | Register | API |
 |---------|----------|-----|
-| DK | CVR (Erhvervsstyrelsen) | `distribution.virk.dk` Elasticsearch (basic auth, free registration) |
+| DK | CVR (Erhvervsstyrelsen) | `distribution.virk.dk` Elasticsearch (free; identify in User-Agent) |
 | SE | allabolag.se | HTML scrape, 1 req/s |
 | NO | Brønnøysundregistrene | `data.brreg.no` open JSON |
 | FI | PRH Avoindata (YTJ) | `avoindata.prh.fi` open JSON |
@@ -26,11 +26,14 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env
-# edit .env: add CVR_USER and CVR_PASS (Denmark only)
+# edit .env: set CVR_APP_NAME and CVR_CONTACT_EMAIL (Denmark only)
 ```
 
-To get Denmark credentials, register once at <https://datacvr.virk.dk>
-("System-til-system adgang"). NO, FI, and SE work without credentials.
+Denmark's CVR distribution endpoint is free but Erhvervsstyrelsen asks
+every client to identify itself in the `User-Agent` header. Register your
+app name + contact email once by email to `datacvr@erst.dk` (no password
+is issued), then put both values in `.env`. NO, FI, and SE need no
+registration at all.
 
 ## Usage
 

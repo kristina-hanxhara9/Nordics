@@ -1,8 +1,9 @@
 """Denmark: CVR distribution API (Erhvervsstyrelsen, Elasticsearch).
 
-Requires one-time email registration with Erhvervsstyrelsen to get basic-auth
-credentials. Set CVR_USER and CVR_PASS in the environment (.env).
-See https://datacvr.virk.dk for registration.
+Erhvervsstyrelsen grants access to the CVR distribution endpoint after a
+one-time email registration in which you state the app name and your
+contact address. They then require every request to send a User-Agent
+that identifies both. Set CVR_APP_NAME and CVR_CONTACT_EMAIL in .env.
 """
 from __future__ import annotations
 
@@ -34,15 +35,19 @@ class DenmarkSource(Source):
     country = "DK"
 
     def __init__(self, session: requests.Session | None = None) -> None:
-        user = os.environ.get("CVR_USER")
-        pw = os.environ.get("CVR_PASS")
-        if not user or not pw:
+        app_name = os.environ.get("CVR_APP_NAME")
+        contact = os.environ.get("CVR_CONTACT_EMAIL")
+        if not app_name or not contact:
             raise RuntimeError(
-                "CVR_USER and CVR_PASS must be set (see README for registration)."
+                "CVR_APP_NAME and CVR_CONTACT_EMAIL must be set — Erhvervsstyrelsen "
+                "requires both in the User-Agent (see README)."
             )
         self.session = session or requests.Session()
-        self.session.auth = (user, pw)
-        self.session.headers.update({"Content-Type": "application/json", "Accept": "application/json"})
+        self.session.headers.update({
+            "User-Agent": f"{app_name} ({contact})",
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        })
 
     @retry(stop=stop_after_attempt(4), wait=wait_exponential(multiplier=2, min=2, max=16))
     def _post(self, url: str, payload: dict, params: dict | None = None) -> dict:
