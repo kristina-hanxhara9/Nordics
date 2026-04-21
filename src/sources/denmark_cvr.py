@@ -1,9 +1,8 @@
 """Denmark: CVR distribution API (Erhvervsstyrelsen, Elasticsearch).
 
-Erhvervsstyrelsen grants access to the CVR distribution endpoint after a
-one-time email registration in which you state the app name and your
-contact address. They then require every request to send a User-Agent
-that identifies both. Set CVR_APP_NAME and CVR_CONTACT_EMAIL in .env.
+Requires a free account. Email cvrselvbetjening@erst.dk to request access;
+Erhvervsstyrelsen issues a username and password (basic auth). Processing
+time is typically ~3 weeks. Set CVR_USER and CVR_PASS in .env.
 """
 from __future__ import annotations
 
@@ -35,16 +34,16 @@ class DenmarkSource(Source):
     country = "DK"
 
     def __init__(self, session: requests.Session | None = None) -> None:
-        app_name = os.environ.get("CVR_APP_NAME")
-        contact = os.environ.get("CVR_CONTACT_EMAIL")
-        if not app_name or not contact:
+        user = os.environ.get("CVR_USER")
+        pw = os.environ.get("CVR_PASS")
+        if not user or not pw:
             raise RuntimeError(
-                "CVR_APP_NAME and CVR_CONTACT_EMAIL must be set — Erhvervsstyrelsen "
-                "requires both in the User-Agent (see README)."
+                "CVR_USER and CVR_PASS must be set. Request credentials by "
+                "emailing cvrselvbetjening@erst.dk (see README)."
             )
         self.session = session or requests.Session()
+        self.session.auth = (user, pw)
         self.session.headers.update({
-            "User-Agent": f"{app_name} ({contact})",
             "Content-Type": "application/json",
             "Accept": "application/json",
         })

@@ -14,7 +14,7 @@ Iceland is out of scope.
 
 | Country | Register | Access |
 |---------|----------|--------|
-| DK | CVR (Erhvervsstyrelsen) | `distribution.virk.dk` Elasticsearch — **requires email approval**; free, identify in User-Agent |
+| DK | CVR (Erhvervsstyrelsen) | `distribution.virk.dk` Elasticsearch — free, **requires email request for username + password** (~3 week turnaround) |
 | SE | Bolagsverket + SCB bulk files | Local `.txt` download (free, no account) |
 | NO | Brønnøysundregistrene | `data.brreg.no` open JSON (no auth) |
 | FI | PRH Avoindata (YTJ) | `avoindata.prh.fi` open JSON (no auth) |
@@ -26,27 +26,32 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env
-# edit .env: set CVR_APP_NAME and CVR_CONTACT_EMAIL (Denmark only)
+# edit .env: set CVR_USER and CVR_PASS once you receive them (Denmark only)
 ```
 
-### Denmark — one-time email approval
+### Denmark — one-time account request
 
-Erhvervsstyrelsen requires a short email to `datacvr@erst.dk` before
-granting access to the distribution endpoint. Template:
+Erhvervsstyrelsen runs a free system-to-system access path for
+`distribution.virk.dk`. You request it by email to
+`cvrselvbetjening@erst.dk`. They reply with a username and password
+(basic auth). Typical turnaround is ~3 weeks.
 
-> Subject: Anmodning om adgang til CVR's systemgrænseflade
+Template:
+
+> Subject: Anmodning om system-til-system adgang til CVR-data
 >
 > Hej,
 >
 > Jeg ønsker adgang til distribution.virk.dk til et internt markedsanalyseprojekt.
-> App-navn: NordicMarketResearch. Kontakt: <din email>.
-> Anvendelse: engangsudtræk af virksomheder under udvalgte branchekoder — ingen videredistribution.
+> Formål: engangsudtræk af virksomheder under udvalgte branchekoder til egen
+> markedsresearch — ingen videredistribution.
+>
+> Kontakt: <dit navn>, <din email>, <evt. virksomhed/CVR-nr>.
 >
 > Mvh, <dit navn>
 
-Turnaround is usually 1–2 days. Once approved, fill `CVR_APP_NAME` and
-`CVR_CONTACT_EMAIL` in `.env`. No password is issued — every request
-identifies you in the `User-Agent` header.
+Once you receive credentials, fill `CVR_USER` and `CVR_PASS` in `.env`.
+Docs: <https://datacvr.virk.dk/artikel/system-til-system-adgang-til-cvr-data>.
 
 ### Sweden — bulk files (free, no account)
 
